@@ -11,9 +11,11 @@ import CoreData
 
 class DataStore {
     
-
+    // Because this is a "static let" we call this specific variable without having to instatiate a version or actual instance of DataStore. When we call DataStore.sharedDataStore(), we create one single instance of data store. Thus, anywhere in our code, we can all any functions from DataStore and be working within the same exact object context.
     static let sharedDataStore = DataStore()
     
+    // Create a public Array property to hold your fetched objects:
+    var messages = [Message]()
     
     // MARK: - Core Data Saving support
     
@@ -31,10 +33,57 @@ class DataStore {
         }
     }
     
-//        func fetchData ()
-//        {
-//         perform a fetch request to fill an array property on your datastore
-//        }
+    // Implement fetchData() to create an NSFetchRequest, have your context execute it, and set the results to your messages array:
+    func fetchData () {
+            
+        let messageFetch = NSFetchRequest(entityName: Message.entityName ) // entity name corresponds to the entity name we created in our data model.
+        
+        let createdAt = NSSortDescriptor(key: "createdAt", ascending: true) // create a sort descriptor to sort by date
+        
+        messageFetch.sortDescriptors = [createdAt] // add the sort descriptor to the messageFetch
+            
+        do {
+                
+            //perform a fetch request to fill our array property on your datastore:
+            self.messages = try self.managedObjectContext.executeFetchRequest(messageFetch) as! [Message]
+            
+        } catch {
+             
+            print("Fetch doesn't work.")
+                
+        }
+        
+        // If your messages array is still empty, call generateTestData() and pass them again.
+        if messages.count == 0 {
+            
+            self.generateTestData()
+            
+        }
+            
+    }
+    
+    // Create a few Messages. Use NSEntityDescription class function insertNewObjectForEntityForName(_:inManagedObjectContext:)
+    // Don't forget to set your test messages' content and createdAt properties!
+    func generateTestData() {
+        
+        let message1 = NSEntityDescription.insertNewObjectForEntityForName(Message.entityName , inManagedObjectContext: self.managedObjectContext) as! Message // cast to a Message Type because it is originally an NSManagedObject.
+        message1.content = "Ismael"
+        message1.createdAt = NSDate()
+        
+        let message2 = NSEntityDescription.insertNewObjectForEntityForName(Message.entityName, inManagedObjectContext: self.managedObjectContext) as! Message // // cast to a Message Type because it is originally an NSManagedObject.
+        message2.content = "Johann"
+        message2.createdAt = NSDate()
+        
+        let message3 = NSEntityDescription.insertNewObjectForEntityForName(Message.entityName, inManagedObjectContext: self.managedObjectContext) as! Message // // cast to a Message Type because it is originally an NSManagedObject.
+        message3.content = "David "
+        message3.createdAt = NSDate()
+        
+        self.saveContext()
+        self.fetchData()
+    
+    }
+    
+    
 
     // MARK: - Core Data stack
     // Managed Object Context property getter. This is where we've dropped our "boilerplate" code.
@@ -50,7 +99,7 @@ class DataStore {
     
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("<#XCDATAMODELD_NAME#>", withExtension: "momd")!
+        let modelURL = NSBundle.mainBundle().URLForResource("slapChat", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
     

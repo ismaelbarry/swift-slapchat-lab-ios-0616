@@ -8,13 +8,13 @@
         <!--Table View Controller-->
         <scene sceneID="z6K-tG-zJe">
             <objects>
-                <tableViewController id="XAu-n2-nEF" sceneMemberID="viewController">
+                <tableViewController id="XAu-n2-nEF" customClass="TableViewController" customModule="SlapChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="BOg-Rj-h6G">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="74a-eq-zcV" style="IBUITableViewCellStyleDefault" id="9im-4Z-3su">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="basicCell" textLabel="74a-eq-zcV" style="IBUITableViewCellStyleDefault" id="9im-4Z-3su">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9im-4Z-3su" id="Jlf-uV-ayF">
@@ -25,7 +25,7 @@
                                             <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -38,12 +38,51 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="hPh-B6-6eu">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="SYd-iy-GQY"/>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="SYd-iy-GQY">
+                            <connections>
+                                <segue destination="H9k-UG-NoE" kind="presentation" id="aZ7-dd-BfJ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ejz-2p-aJF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="957" y="339"/>
+        </scene>
+        <!--Add View Controller-->
+        <scene sceneID="Uvf-Ez-0cj">
+            <objects>
+                <viewController id="H9k-UG-NoE" customClass="AddViewController" customModule="SlapChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UXC-V8-LPE"/>
+                        <viewControllerLayoutGuide type="bottom" id="Sns-yx-XyM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DnM-p6-Qcw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9zL-9K-a2u">
+                                <rect key="frame" x="20" y="222" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mo6-2G-CRw">
+                                <rect key="frame" x="285" y="380" width="30" height="30"/>
+                                <state key="normal" title="Add"/>
+                                <connections>
+                                    <action selector="addButtonDidTouchUpInside:" destination="H9k-UG-NoE" eventType="touchUpInside" id="njh-XH-slv"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="textField" destination="9zL-9K-a2u" id="6ez-Na-auk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wl1-oJ-VtO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1637" y="339"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GI5-Nd-ee2">
